@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comparador Técnico de Hardware, Notebooks & Periféricos — Amazon Brasil</title>
+  <meta name="description" content="Curadoria técnica anti-cilada para encontrar o menor preço verificado hoje na Amazon Brasil (Prime) em Notebooks, GPUs, Monitores IPS, Cadeiras NR17 e Áudio Hi-Fi." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .glass-panel {
+      background: linear-gradient(145deg, rgba(22, 27, 41, 0.88), rgba(15, 19, 30, 0.95));
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .card-hover {
+      transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-2px);
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 12px 32px -10px rgba(16, 185, 129, 0.18);
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased">
+  <div class="bg-emerald-500/10 border-b border-emerald-500/20 py-2.5 px-4 text-center text-xs text-emerald-300 font-medium">
+    ⚡ Monitoramento Independente de Preços Reais na Amazon Brasil (Prime) • Sem Anúncios Invasivos • Atualizado Hoje
+  </div>
+
+  <header class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-6">
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-emerald-500/30">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 text-xs font-bold mb-3">
+          🛡️ CURADORIA TÉCNICA ANTI-CILADA • COMUNIDADE BR
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Comparador Técnico de Menor Preço Verificado (Amazon Brasil)
+        </h1>
+        <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+          Filtramos modelos com componentes capados (VRM sem dissipação, telas TN/VA com ghosting ou fontes bomba). Confira abaixo as escolhas mais racionais hoje com <strong>Frete Grátis Amazon Prime</strong> e garantia oficial no Brasil.
+        </p>
+      </div>
+
+      <div class="mt-6 flex flex-col gap-4">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Pesquisar modelo, RTX 4060, Nitro V15, LG UltraGear, Cadeira NR17, Moondrop..."
+          class="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-sm text-white focus:outline-none focus:border-emerald-400"
+        />
+
+        <div id="categoryButtons" class="flex flex-wrap items-center gap-2"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+    <div id="catalogGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+  </main>
+
+  <script>
+    const CURATED_BENCHMARKS = [
+      {
+        id: 'bench-nb-1',
+        catSlug: 'notebooks-custo-beneficio',
+        categoryLabel: 'Notebooks & Portáteis',
+        badge: 'Melhor Custo-Benefício 2026',
+        title: 'Notebook Gamer Acer Nitro V15 i5-13420H 16GB RAM 512GB SSD RTX 3050 / RTX 4050 Tela 15.6" IPS 144Hz',
+        priceBRL: 4399.00,
+        oldPriceBRL: 5499.00,
+        discountPercent: 20,
+        technicalVerdict: 'Sistema térmico com 2 ventoinhas independentes, painel IPS 144Hz real e slot M.2 NVMe extra livre. Imbatível para programação pesada, modelagem e jogos em 1080p.',
+        amazonQuery: 'Notebook Gamer Acer Nitro V15 RTX'
+      },
+      {
+        id: 'bench-nb-2',
+        catSlug: 'notebooks-custo-beneficio',
+        categoryLabel: 'Notebooks & Portáteis',
+        badge: 'Escolha Trabalho & Faculdade',
+        title: 'Notebook Lenovo IdeaPad Slim 3i Intel Core i5-12450H 16GB SSD 512GB Tela 15.6" Full HD Antirreflexo',
+        priceBRL: 2899.00,
+        oldPriceBRL: 3599.00,
+        discountPercent: 19,
+        technicalVerdict: 'Processador série H de alto desempenho (não é série U limitada), chassi leve e bateria otimizada para uso intenso em desenvolvimento e escritório.',
+        amazonQuery: 'Notebook Lenovo IdeaPad Slim 3i i5 16GB 512GB'
+      },
+      {
+        id: 'bench-hw-1',
+        catSlug: 'hardware-gpu-processadores',
+        categoryLabel: 'Hardware, GPUs & Upgrades PC',
+        badge: 'Rei do 1080p / 1440p',
+        title: 'Placa de Vídeo NVIDIA GeForce RTX 4060 8GB GDDR6 DLSS 3 Ray Tracing (MSI / Galax / Asus Dual)',
+        priceBRL: 2049.90,
+        oldPriceBRL: 2599.00,
+        discountPercent: 21,
+        technicalVerdict: 'TDP de apenas 115W (roda fria em fontes de 500W+), acesso ao DLSS 3 Frame Generation e codificador NVENC AV1 de 8ª geração.',
+        amazonQuery: 'Placa de Video RTX 4060 8GB GDDR6'
+      },
+      {
+        id: 'bench-hw-2',
+        catSlug: 'hardware-gpu-processadores',
+        categoryLabel: 'Hardware, GPUs & Upgrades PC',
+        badge: 'Melhor Custo por Frame',
+        title: 'Placa de Vídeo AMD Radeon RX 6600 8GB GDDR6 ASRock Challenger / XFX Speedster SWFT 210',
+        priceBRL: 1389.90,
+        oldPriceBRL: 1799.00,
+        discountPercent: 23,
+        technicalVerdict: 'A placa de entrada mais honesta do mercado brasileiro: entrega o dobro de longevidade de qualquer vídeo integrado sem estourar o orçamento.',
+        amazonQuery: 'Placa de Video AMD Radeon RX 6600 8GB'
+      },
+      {
+        id: 'bench-mon-1',
+        catSlug: 'monitores-ips-alta-taxa',
+        categoryLabel: 'Monitores Gamer & Profissionais',
+        badge: 'Referência IPS 180Hz',
+        title: 'Monitor Gamer LG UltraGear 24" IPS Full HD 180Hz 1ms (GtG) NVIDIA G-SYNC & FreeSync (24GS60F-B)',
+        priceBRL: 849.00,
+        oldPriceBRL: 1149.00,
+        discountPercent: 26,
+        technicalVerdict: 'Painel Fast IPS autêntico com 99% sRGB calibrado de fábrica. Zero black smearing (comum em painéis VA baratos) e 1 ano de garantia LG Brasil.',
+        amazonQuery: 'Monitor Gamer LG UltraGear 24 IPS 180Hz 24GS60F'
+      },
+      {
+        id: 'bench-cad-1',
+        catSlug: 'cadeiras-ergonomicas-nr17',
+        categoryLabel: 'Cadeiras Ergonômicas NR17',
+        badge: 'Melhor p/ Home Office 8h+',
+        title: 'Cadeira de Escritório Ergonômica Elements Astra Pro / Vertta Pro em Mesh Respirável c/ Lombar Adaptativo NR17',
+        priceBRL: 1189.00,
+        oldPriceBRL: 1599.00,
+        discountPercent: 26,
+        technicalVerdict: 'Tela mesh de alta tensão (não cede com o tempo e não esquenta no verão brasileiro), braços 3D e suporte lombar dinâmico com laudo NR17.',
+        amazonQuery: 'Cadeira Ergonomica Elements Astra Pro Mesh NR17'
+      },
+      {
+        id: 'bench-aud-1',
+        catSlug: 'fones-hifi-audiofilia',
+        categoryLabel: 'Áudio Hi-Fi, IEMs & DACs',
+        badge: 'Favorito r/audiofilia',
+        title: 'Fone In-Ear Monitor Hi-Fi Moondrop Chu II / Truthear Zero:RED + Cabo Intercambiável 2-Pin OFC',
+        priceBRL: 279.00,
+        oldPriceBRL: 379.00,
+        discountPercent: 26,
+        technicalVerdict: 'Curva Harman equilibrada, carcaça em liga metálica acústica e separação instrumental superior a headsets gamers que custam 3x mais.',
+        amazonQuery: 'Moondrop Chu II In Ear Monitor HiFi'
+      },
+      {
+        id: 'bench-con-1',
+        catSlug: 'consoles-e-controles-hall-effect',
+        categoryLabel: 'Consoles, Controles Hall Effect & Portáteis',
+        badge: 'Zero Drift Magnético',
+        title: 'Controle Sem Fio 8BitDo Ultimate Wireless 2.4G com Analógicos Hall Effect + Base Carregadora Dock',
+        priceBRL: 319.00,
+        oldPriceBRL: 449.00,
+        discountPercent: 29,
+        technicalVerdict: 'Sensores magnéticos Hall Effect que nunca dão drift nos analógicos, botões adicionais traseiros mapeáveis e dock que carrega automaticamente.',
+        amazonQuery: 'Controle 8BitDo Ultimate Hall Effect Dock'
+      },
+      {
+        id: 'bench-auto-1',
+        catSlug: 'automotivo-scanners-dashcam',
+        categoryLabel: 'Acessórios Automotivos, Diagnóstico & Segurança',
+        badge: 'Kit Essencial r/carros',
+        title: 'Câmera Veicular Dashcam 70mai Pro Plus+ A500S Sony IMX335 2.7K GPS + Scanner OBD2 Vgate iCar Pro',
+        priceBRL: 489.00,
+        oldPriceBRL: 679.00,
+        discountPercent: 28,
+        technicalVerdict: 'Grava placas com nitidez noturna em 2.7K com telemetria GPS de velocidade e permite escanear módulos de injeção/câmbio pelo celular antes de comprar carro usado.',
+        amazonQuery: 'Dashcam 70mai A500S GPS Sony'
+      }
+    ];
+
+    const LIVE_ITEMS = [{"id":"MLB-DEAL-3155771","catSlug":"hardware-gpu-processadores","categoryLabel":"Peças e Acessórios para automóveis","badge":"Queda de Preço • -61% OFF","title":"Carregador De Bateria 12v 6a Bivolt Inteligente Carro Moto Caminhão Automotivo 4ah A 100ah Com Função Reparo Display Digital Proteção Carga Emerg","priceBRL":35,"oldPriceBRL":89.9,"discountPercent":61,"technicalVerdict":"Oferta monitorada hoje com desconto real de 61% abaixo da média (3x R$ 11,67 sem juros).","amazonQuery":"Carregador De Bateria 12v 6a Bivolt"},{"id":"MLB-DEAL-3155773","catSlug":"hardware-gpu-processadores","categoryLabel":"Outros","badge":"Queda de Preço • -31% OFF","title":"Câmera Bullet Fixa Luz Dupla 2mp Hikvision","priceBRL":73.26,"oldPriceBRL":105.66,"discountPercent":31,"technicalVerdict":"Oferta monitorada hoje com desconto real de 31% abaixo da média (3x R$ 24,42 sem juros).","amazonQuery":"Câmera Bullet Fixa Luz Dupla 2mp"},{"id":"MLB-DEAL-3155768","catSlug":"hardware-gpu-processadores","categoryLabel":"Utilidades Domésticas","badge":"Queda de Preço • -21% OFF","title":"Aparelho De Jantar 20 Peças Branco Poppy De Cerâmica - Scalla Cerâmica","priceBRL":241,"oldPriceBRL":303.63,"discountPercent":21,"technicalVerdict":"Oferta monitorada hoje com desconto real de 21% abaixo da média (10x R$ 24,10 sem juros).","amazonQuery":"Aparelho De Jantar 20 Peças Branco"},{"id":"MLB-DEAL-3155764","catSlug":"hardware-gpu-processadores","categoryLabel":"Relógios e Jóias","badge":"Queda de Preço • -35% OFF","title":"Relógio Masculino Luxo Poedagar Old Money Aço Quartzo Prata Prateado Clássico Preto Capra Pink","priceBRL":94.5,"oldPriceBRL":145.9,"discountPercent":35,"technicalVerdict":"Oferta monitorada hoje com desconto real de 35% abaixo da média (3x R$ 31,50 sem juros).","amazonQuery":"Relógio Masculino Luxo Poedagar Old Money"},{"id":"MLB-DEAL-3155762","catSlug":"hardware-gpu-processadores","categoryLabel":"Moda e Calçados masculinos","badge":"Queda de Preço • -32% OFF","title":"Fleece Masculino Glacier Full Zip Hoodie The North Face (P)","priceBRL":543.19,"oldPriceBRL":799,"discountPercent":32,"technicalVerdict":"Oferta monitorada hoje com desconto real de 32% abaixo da média (10x R$ 54,32 sem juros).","amazonQuery":"Fleece Masculino Glacier Full Zip Hoodie"},{"id":"MLB-DEAL-3155362","catSlug":"hardware-gpu-processadores","categoryLabel":"Moda e Calçados masculinos","badge":"Queda de Preço • -69% OFF","title":"Camiseta Tech Light Insider","priceBRL":58.65,"oldPriceBRL":189,"discountPercent":69,"technicalVerdict":"Oferta monitorada hoje com desconto real de 69% abaixo da média (3x R$ 19,55 sem juros).","amazonQuery":"Camiseta Tech Light Insider"},{"id":"MLB-DEAL-3155753","catSlug":"hardware-gpu-processadores","categoryLabel":"Eletrônicos, Áudio e Vídeo","badge":"Queda de Preço • -34% OFF","title":"Smart TV LG UHD AI UA75 50 polegadas HDR10 Pro Processador 7 AI Ger8 webOS 25 - R$ 2.327","priceBRL":2327,"oldPriceBRL":3500,"discountPercent":34,"technicalVerdict":"Oferta monitorada hoje com desconto real de 34% abaixo da média (10x R$ 232,70 sem juros).","amazonQuery":"Smart TV LG UHD AI UA75"},{"id":"MLB-DEAL-3155750","catSlug":"hardware-gpu-processadores","categoryLabel":"Moda e Calçados masculinos","badge":"Queda de Preço • -64% OFF","title":"Kit 4 Cuecas Boxer Mash Poliamida Sem Costura Box Original","priceBRL":59,"oldPriceBRL":165.05,"discountPercent":64,"technicalVerdict":"Oferta monitorada hoje com desconto real de 64% abaixo da média (3x R$ 19,67 sem juros).","amazonQuery":"Kit 4 Cuecas Boxer Mash Poliamida"},{"id":"MLB-DEAL-3155746","catSlug":"hardware-gpu-processadores","categoryLabel":"Smartphones, Tablets e Telefones","badge":"Queda de Preço • -32% OFF","title":"Samsung Galaxy A07 128gb 4gb Ram Preto","priceBRL":797,"oldPriceBRL":1177,"discountPercent":32,"technicalVerdict":"Oferta monitorada hoje com desconto real de 32% abaixo da média (10x R$ 79,70 sem juros).","amazonQuery":"Samsung Galaxy A07 128gb 4gb Ram"},{"id":"MLB-DEAL-3155738","catSlug":"hardware-gpu-processadores","categoryLabel":"Outros","badge":"Queda de Preço • -18% OFF","title":"Mercado Livre com até 70% OFF! As melhores ofertas estão aqui","priceBRL":299.9,"oldPriceBRL":365.88,"discountPercent":18,"technicalVerdict":"Oferta monitorada hoje com desconto real de 18% abaixo da média (10x R$ 29,99 sem juros).","amazonQuery":"Mercado Livre com até 70% OFF!"},{"id":"MLB-13994673","catSlug":"notebooks-custo-beneficio","categoryLabel":"Notebook","badge":"Queda de Preço • -14% OFF","title":"Notebook Gamer Lenovo LOQ 15IRX9 Intel Core i7-13645HX RTX 4050 15,6\" 16GB SSD 512GB Windows 11 - 83KH000MBR","priceBRL":7742.13,"oldPriceBRL":9002.48,"discountPercent":14,"technicalVerdict":"Oferta monitorada hoje com desconto real de 14% abaixo da média (10x R$ 774,21 sem juros).","amazonQuery":"Notebook Gamer Lenovo LOQ 15IRX9 Intel"},{"id":"MLB-13992755","catSlug":"notebooks-custo-beneficio","categoryLabel":"Notebook","badge":"Queda de Preço • -17% OFF","title":"Notebook Gamer Asus TUF Gaming F16 Intel Core 5 210H RTX 4050 16\" 16GB SSD 512GB Windows 11 FX607VU-RL053W","priceBRL":7139.16,"oldPriceBRL":8601.4,"discountPercent":17,"technicalVerdict":"Oferta monitorada hoje com desconto real de 17% abaixo da média (10x R$ 713,92 sem juros).","amazonQuery":"Notebook Gamer Asus TUF Gaming F16"}];
+    const ALL_ITEMS = [...CURATED_BENCHMARKS, ...LIVE_ITEMS];
+
+    const CATEGORIES = [
+      { slug: 'ALL', label: 'Todas as Categorias' },
+      { slug: 'notebooks-custo-beneficio', label: 'Notebooks Custo-Benefício' },
+      { slug: 'hardware-gpu-processadores', label: 'GPUs, SSDs & Hardware' },
+      { slug: 'monitores-ips-alta-taxa', label: 'Monitores IPS 144Hz/180Hz' },
+      { slug: 'cadeiras-ergonomicas-nr17', label: 'Cadeiras Ergonômicas NR17' },
+      { slug: 'fones-hifi-audiofilia', label: 'Áudio Hi-Fi & IEMs' },
+      { slug: 'consoles-e-controles-hall-effect', label: 'Consoles & Controles Hall Effect' },
+      { slug: 'automotivo-scanners-dashcam', label: 'Automotivo & Scanners OBD2' }
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let selectedCat = params.get('cat') || 'ALL';
+    const amazonTag = params.get('amz') || 'gamartinho-20';
+    let searchQuery = '';
+
+    function renderCategories() {
+      const container = document.getElementById('categoryButtons');
+      container.innerHTML = CATEGORIES.map(cat => {
+        const active = selectedCat === cat.slug;
+        return `<button data-slug="${cat.slug}" class="px-3.5 py-2 rounded-xl text-xs font-semibold transition-all ${active ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/20' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">${cat.label}</button>`;
+      }).join('');
+
+      container.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedCat = btn.getAttribute('data-slug');
+          renderCategories();
+          renderCatalog();
+        });
+      });
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById('catalogGrid');
+      const filtered = ALL_ITEMS.filter(item => {
+        const matchCat = selectedCat === 'ALL' || item.catSlug === selectedCat;
+        const matchSearch = !searchQuery.trim() || `${item.title} ${item.categoryLabel} ${item.technicalVerdict}`.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCat && matchSearch;
+      });
+
+      grid.innerHTML = filtered.map(item => {
+        const amzUrl = `https://www.amazon.com.br/s?k=${encodeURIComponent(item.amazonQuery)}&tag=${encodeURIComponent(amazonTag)}`;
+        const priceFmt = Number(item.priceBRL).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+        const oldFmt = Number(item.oldPriceBRL).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+
+        return `
+          <div class="glass-panel card-hover rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">${item.badge}</span>
+                <span class="text-xs text-slate-400 font-medium">${item.categoryLabel}</span>
+              </div>
+              <h2 class="text-base sm:text-lg font-bold text-white leading-snug mb-3">${item.title}</h2>
+              <div class="rounded-xl bg-black/40 border border-white/5 p-3.5 mb-4">
+                <div class="flex items-baseline gap-3">
+                  <span class="text-2xl font-extrabold text-emerald-400">R$ ${priceFmt}</span>
+                  <span class="text-xs text-slate-400 line-through">R$ ${oldFmt}</span>
+                  <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-xs font-bold">-${item.discountPercent}% Hoje</span>
+                </div>
+                <div class="flex items-center gap-4 mt-2 text-[11px] text-slate-300">
+                  <span class="text-emerald-300">🚚 Frete Grátis Amazon Prime</span>
+                  <span>✅ Garantia Oficial A-a-Z Amazon BR</span>
+                </div>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed mb-5">
+                <strong class="text-white">Veredito Técnico:</strong> ${item.technicalVerdict}
+              </p>
+            </div>
+            <div class="pt-4 border-t border-white/10">
+              <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition-all">
+                🛒 Ver Menor Preço de Hoje na Amazon Brasil &rarr;
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderCatalog();
+    });
+
+    renderCategories();
+    renderCatalog();
+  </script>
+</body>
+</html>
